@@ -1,0 +1,79 @@
+﻿<Window x:Class="MVVM.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MVVM"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300"/>
+            <RowDefinition Height="150" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="600"/>
+            <ColumnDefinition Width="200" />
+        </Grid.ColumnDefinitions>
+
+        <ListBox Grid.Row="1" 
+                 Grid.Column="0" 
+                 ItemsSource="{Binding Images}" 
+                 SelectedItem="{Binding SelectedImage}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="50" Height="50" Source="{Binding Source}" />
+                        <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" Text="{Binding FileName}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+
+        <Image Grid.Row="0" Grid.Column="0" Source="{Binding SelectedImage.Source}"/>
+
+        <StackPanel Grid.Row="0" Grid.Column="1">
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="FilePath:"/>
+                <TextBlock Text="{Binding SelectedImage.FilePath}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="FileName:"/>
+            <TextBlock Text="{Binding SelectedImage.FileName}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="FileSize:"/>
+            <TextBlock Text="{Binding SelectedImage.Size}"/>
+                <TextBlock Text=" Kb"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Button
+            Grid.Row="1"
+            Grid.Column="1"
+            VerticalAlignment="Top"
+            Margin="0,0,20,0"
+            Height="20"
+            Content="Add"
+            Command="{Binding AddCommand}" Click="Button_Click"/>
+
+        <Button
+            Grid.Row="1"
+            Grid.Column="1"
+            VerticalAlignment="Top"
+            Margin="0,21,20,0"
+            Height="20"
+            Content="Delete"
+            Command="{Binding DeleteCommand}"/>
+
+    </Grid>
+</Window>
+
